@@ -6,6 +6,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -101,14 +102,17 @@ public class BackendConfig {
         return new EnrollmentService(enrollmentRepo, sectionRepo, periodRepo, accountRepo, txRunner, idempotencyService, clock);
     }
 
+    // Read cache TTL in ms for GET /sections and GET /registration, 0 = off
     @Bean
-    public SectionService sectionService(SectionRepository sectionRepo, TransactionRunner txRunner) {
-        return new SectionService(sectionRepo, txRunner);
+    public SectionService sectionService(SectionRepository sectionRepo, TransactionRunner txRunner,
+                                         @Value("${app.cache.ttl-ms:0}") long cacheTtlMs) {
+        return new SectionService(sectionRepo, txRunner, cacheTtlMs);
     }
 
     @Bean
-    public RegistrationPeriodService registrationPeriodService(RegistrationPeriodRepository periodRepo, TransactionRunner txRunner, Clock clock) {
-        return new RegistrationPeriodService(periodRepo, txRunner, clock);
+    public RegistrationPeriodService registrationPeriodService(RegistrationPeriodRepository periodRepo, TransactionRunner txRunner, Clock clock,
+                                                               @Value("${app.cache.ttl-ms:0}") long cacheTtlMs) {
+        return new RegistrationPeriodService(periodRepo, txRunner, clock, cacheTtlMs);
     }
 
     @Bean
