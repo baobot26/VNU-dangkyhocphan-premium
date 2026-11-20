@@ -282,7 +282,7 @@ class BackendIntegrationTest {
         var clock = Clock.fixed(NOW, ZoneOffset.UTC);
         var restarted = new RegistrationService(new AuthService(accounts, periods, tokens, (raw, hash) -> false, HASH, clock),
                 new EnrollmentService(enrollments, sections, periods, accounts, tx, new IdempotencyService(idempotency, tx), clock),
-                new SectionService(sections, tx), new RegistrationPeriodService(periods, tx, clock), clock);
+                new SectionService(sections, tx, 0), new RegistrationPeriodService(periods, tx, clock, 0), clock);
         var replay = restarted.enroll(1, "durable", List.of(1L));
         assertThat(replay.replayed()).isTrue(); assertThat(json.<JsonNode>valueToTree(replay.body())).isEqualTo(body(first));
         OWNER.execute("UPDATE idempotency_record SET expires_at=clock_timestamp()-interval '1 second' WHERE idempotency_key='durable'");

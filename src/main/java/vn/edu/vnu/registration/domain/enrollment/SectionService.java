@@ -1,6 +1,7 @@
 package vn.edu.vnu.registration.domain.enrollment;
 
 import vn.edu.vnu.registration.domain.Outcome;
+import vn.edu.vnu.registration.domain.TtlCache;
 import vn.edu.vnu.registration.domain.enrollment.model.Section;
 import vn.edu.vnu.registration.domain.enrollment.model.SectionInput;
 import vn.edu.vnu.registration.domain.enrollment.model.SectionQuery;
@@ -16,17 +17,22 @@ import static vn.edu.vnu.registration.domain.exception.BusinessException.error;
 public class SectionService {
     private final SectionRepository sectionRepository;
     private final TransactionRunner transactionRunner;
+    // Only GET /sections reads this cache, writes go to the repository
+    private final TtlCache<SectionQuery, List<Section>> sectionCache;
 
-    public SectionService(SectionRepository sectionRepository, TransactionRunner transactionRunner) {
+    public SectionService(SectionRepository sectionRepository, TransactionRunner transactionRunner, long cacheTtlMs) {
         this.sectionRepository = sectionRepository;
         this.transactionRunner = transactionRunner;
+        this.sectionCache = new TtlCache<>(cacheTtlMs);
     }
 
     public Map<String, Object> sections(SectionQuery query) {
         if (query.limit() < 1 || query.limit() > 100) {
             throw error(400, "VALIDATION_ERROR", "limit phải từ 1 đến 100.");
         }
-        var rows = sectionRepository.sections(new SectionQuery(query.term(), query.courseCode(), query.q(), query.hasSeats(), query.cursor(), query.limit() + 1));
+        var pageQuery = new SectionQuery(query.term(), query.courseCode(), query.q(), query.hasSeats(), query.cursor(), query.limit() + 1);
+        // Shared cached list, keep it read-only
+        var rows = sectionCache.get(pageQuery, () -> List.copyOf(sectionRepository.sections(pageQuery)));
         var items = rows.stream().limit(query.limit()).map(EnrollmentService::sectionBody).toList();
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("items", items);
