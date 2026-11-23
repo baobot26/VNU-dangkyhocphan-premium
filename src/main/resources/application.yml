@@ -38,6 +38,10 @@ app:
     ip: ${RATE_LIMIT_IP:600}
     account: ${RATE_LIMIT_ACCOUNT:120}
     login: ${RATE_LIMIT_LOGIN:10}
+  admission:
+    login: ${ADMIT_LOGIN:0}
+    write: ${ADMIT_WRITE:0}
+    read: ${ADMIT_READ:0}
 logging:
   level:
     org.springframework.web: INFO

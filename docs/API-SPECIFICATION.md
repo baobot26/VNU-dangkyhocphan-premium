@@ -269,3 +269,8 @@ curl -s -X POST http://127.0.0.1:8080/api/v1/enrollments \
 curl -s -X DELETE http://127.0.0.1:8080/api/v1/enrollments/101 \
   -H "Authorization: Bearer $TOKEN"
 ```
+
+## Admission control
+
+Khi máy chủ bận và đã đạt giới hạn xử lý đồng thời, bất kỳ endpoint nào cũng có thể trả về HTTP 429 cùng header Retry-After. Hãy đợi khoảng thời gian được chỉ định rồi gửi lại yêu cầu.
+Thông tin số chỗ của lớp và đợt đăng ký có thể cũ tối đa 1 giây do bộ nhớ đệm đọc.

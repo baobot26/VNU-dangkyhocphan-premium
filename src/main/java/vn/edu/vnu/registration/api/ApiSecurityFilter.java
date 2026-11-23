@@ -32,12 +32,13 @@ public class ApiSecurityFilter extends OncePerRequestFilter {
     private static final Logger LOG = LoggerFactory.getLogger(ApiSecurityFilter.class);
     private final TokenGateway tokens;
     private final MemoryRateLimiter limiter;
+    private final AdmissionController admission;
     private final ObjectMapper json;
     private final Set<String> healthIps;
     private final QueryTimer repository;
 
-    public ApiSecurityFilter(TokenGateway tokens, MemoryRateLimiter limiter, ObjectMapper json, String healthIps, QueryTimer repository) {
-        this.tokens = tokens; this.limiter = limiter; this.json = json; this.repository = repository;
+    public ApiSecurityFilter(TokenGateway tokens, MemoryRateLimiter limiter, AdmissionController admission, ObjectMapper json, String healthIps, QueryTimer repository) {
+        this.tokens = tokens; this.limiter = limiter; this.admission = admission; this.json = json; this.repository = repository;
         this.healthIps = Arrays.stream(healthIps.split(",")).map(String::trim).filter(s -> !s.isBlank()).map(ApiSecurityFilter::normalizedIp).collect(Collectors.toSet());
     }
 
@@ -59,24 +60,32 @@ public class ApiSecurityFilter extends OncePerRequestFilter {
             String path = req.getRequestURI();
             if (path.startsWith("/api/v1/")) {
                 limiter.ip(req.getRemoteAddr());
-                boolean health = path.equals("/api/v1/health");
-                if (health && !healthIps.contains(normalizedIp(req.getRemoteAddr()))) throw error(403, "FORBIDDEN", "Địa chỉ không được phép kiểm tra dịch vụ.");
-                if (!health && !path.equals("/api/v1/auth/login")) {
-                    String header = req.getHeader("Authorization");
-                    if (header != null) {
-                        if (!header.regionMatches(true, 0, "Bearer ", 0, 7) || header.substring(7).isBlank() || header.length() > 8192) throw error(401, "UNAUTHORIZED", "Bearer token không hợp lệ.");
-                        Identity identity;
-                        try { identity = tokens.verify(header.substring(7)); }
-                        catch (BusinessException e) { throw e; }
-                        catch (RuntimeException e) { throw error(401, "UNAUTHORIZED", "Token không hợp lệ hoặc đã hết hạn."); }
-                        if (identity == null) throw error(401, "UNAUTHORIZED", "Token không hợp lệ.");
-                        limiter.account(identity.accountId());
-                        var authentication = UsernamePasswordAuthenticationToken.authenticated(identity, null, List.of(new SimpleGrantedAuthority("ROLE_" + identity.role())));
-                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                AdmissionController.Group group = group(req, path);
+                if (group != null) admission.enter(group);
+                try {
+                    boolean health = path.equals("/api/v1/health");
+                    if (health && !healthIps.contains(normalizedIp(req.getRemoteAddr()))) throw error(403, "FORBIDDEN", "Địa chỉ không được phép kiểm tra dịch vụ.");
+                    if (!health && !path.equals("/api/v1/auth/login")) {
+                        String header = req.getHeader("Authorization");
+                        if (header != null) {
+                            if (!header.regionMatches(true, 0, "Bearer ", 0, 7) || header.substring(7).isBlank() || header.length() > 8192) throw error(401, "UNAUTHORIZED", "Bearer token không hợp lệ.");
+                            Identity identity;
+                            try { identity = tokens.verify(header.substring(7)); }
+                            catch (BusinessException e) { throw e; }
+                            catch (RuntimeException e) { throw error(401, "UNAUTHORIZED", "Token không hợp lệ hoặc đã hết hạn."); }
+                            if (identity == null) throw error(401, "UNAUTHORIZED", "Token không hợp lệ.");
+                            limiter.account(identity.accountId());
+                            var authentication = UsernamePasswordAuthenticationToken.authenticated(identity, null, List.of(new SimpleGrantedAuthority("ROLE_" + identity.role())));
+                            SecurityContextHolder.getContext().setAuthentication(authentication);
+                        }
                     }
+                    chain.doFilter(req, res);
+                } finally {
+                    if (group != null) admission.leave(group);
                 }
+            } else {
+                chain.doFilter(req, res);
             }
-            chain.doFilter(req, res);
         } catch (BusinessException e) {
             writeError(res, e.status(), e.body(), json);
         } finally {
@@ -84,6 +93,15 @@ public class ApiSecurityFilter extends OncePerRequestFilter {
             repository.resetTiming();
             MDC.remove("requestId");
         }
+    }
+
+    private AdmissionController.Group group(HttpServletRequest req, String path) {
+        String method = req.getMethod();
+        if ("POST".equals(method) && path.equals("/api/v1/auth/login")) return AdmissionController.Group.LOGIN;
+        if ("POST".equals(method) && path.equals("/api/v1/enrollments")) return AdmissionController.Group.WRITE;
+        if ("DELETE".equals(method) && path.startsWith("/api/v1/enrollments/") && path.length() > "/api/v1/enrollments/".length()) return AdmissionController.Group.WRITE;
+        if ("GET".equals(method) && !path.equals("/api/v1/health")) return AdmissionController.Group.READ;
+        return null;
     }
 
     public static void writeError(HttpServletResponse res, int status, ErrorBody body, ObjectMapper json) throws IOException {

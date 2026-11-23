@@ -13,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import vn.edu.vnu.registration.api.ApiSecurityFilter;
+import vn.edu.vnu.registration.api.AdmissionController;
 import vn.edu.vnu.registration.api.MemoryRateLimiter;
 import vn.edu.vnu.registration.data.metrics.QueryTimer;
 import vn.edu.vnu.registration.domain.exception.ErrorBody;
@@ -22,7 +23,7 @@ import vn.edu.vnu.registration.domain.port.TokenGateway;
 @Configuration
 public class SecurityConfig {
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, ObjectProvider<TokenGateway> tokens, MemoryRateLimiter limiter,
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, ObjectProvider<TokenGateway> tokens, MemoryRateLimiter limiter, AdmissionController admission,
                                                          ObjectMapper json, QueryTimer repository,
                                                          @Value("${app.health-allowed-ips}") String healthIps) throws Exception {
         return http.csrf(csrf -> csrf.disable()).cors(Customizer.withDefaults())
@@ -40,7 +41,7 @@ public class SecurityConfig {
             .exceptionHandling(e -> e
                 .authenticationEntryPoint((req, res, ex) -> ApiSecurityFilter.writeError(res, 401, new ErrorBody("UNAUTHORIZED", "Cần Bearer token hợp lệ.", null), json))
                 .accessDeniedHandler((req, res, ex) -> ApiSecurityFilter.writeError(res, 403, new ErrorBody("FORBIDDEN", "Không có quyền thực hiện thao tác.", null), json)))
-            .addFilterBefore(new ApiSecurityFilter(tokens.getIfAvailable(BackendConfig::missingTokenGateway), limiter, json, healthIps, repository), UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(new ApiSecurityFilter(tokens.getIfAvailable(BackendConfig::missingTokenGateway), limiter, admission, json, healthIps, repository), UsernamePasswordAuthenticationFilter.class)
             .build();
     }
 }
