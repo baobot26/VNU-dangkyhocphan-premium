@@ -42,6 +42,8 @@ app:
     login: ${ADMIT_LOGIN:0}
     write: ${ADMIT_WRITE:0}
     read: ${ADMIT_READ:0}
+  cache:
+    ttl-ms: ${READ_CACHE_TTL_MS:0}
 logging:
   level:
     org.springframework.web: INFO

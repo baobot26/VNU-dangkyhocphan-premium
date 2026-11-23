@@ -83,6 +83,8 @@ Trả đợt `OPEN` hiện tại và giờ máy chủ. Không có tham số truy
 
 `registration` là `null` khi không có đợt nào đang `OPEN`. Phản hồi có `ETag`; gửi `If-None-Match` khớp thì nhận 304. Header `X-Server-Time` luôn có giờ hiện tại.
 
+Khi `READ_CACHE_TTL_MS` lớn hơn 0, thông tin đợt đăng ký có thể cũ tối đa khoảng 1 giây (theo TTL cấu hình).
+
 ### 3.4 `GET /sections`
 
 Tra cứu lớp học phần, phân trang theo cursor.
@@ -112,6 +114,8 @@ Phản hồi 200:
 ```
 
 `nextCursor` là `null` ở trang cuối. `availableSeats` chỉ để hiển thị; hệ thống không dùng nó để quyết định đăng ký. Hỗ trợ `ETag` và 304.
+
+Khi `READ_CACHE_TTL_MS` lớn hơn 0, thông tin lớp học phần và số chỗ có thể cũ tối đa khoảng 1 giây (theo TTL cấu hình).
 
 ### 3.5 `GET /enrollments`
 
