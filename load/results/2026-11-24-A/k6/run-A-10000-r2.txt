@@ -1,0 +1,49 @@
+
+     ✓ cancel status is 204
+
+     cancel_duration_ms...............: avg=7056.693628 min=3.795591   med=5134.811149 p(90)=14799.267206 p(95)=18102.184217 p(99)=18798.415589 max=19965.071167 count=8539  
+     checks...........................: 100.00% 8539 out of 8539
+     data_received....................: 145 MB  156 kB/s
+     data_sent........................: 46 MB   49 kB/s
+     enroll_duration_ms...............: avg=8356.269084 min=11.820571  med=7225.458968 p(90)=14951.303593 p(95)=17761.145855 p(99)=18641.387457 max=20726.914246 count=31822 
+   ✗ enroll_time_to_201_ms............: avg=6906.688178 min=12         med=4870        p(90)=17426.6      p(95)=18137        p(99)=18994.16     max=20727        count=9499  
+     http_req_blocked.................: avg=107.71ms    min=1.78µs     med=5.76µs      p(90)=362.22µs     p(95)=1.21s        p(99)=1.49s        max=3.17s        count=120593
+     ✓ { phase:rush }.................: avg=117.41ms    min=1.78µs     med=5.53µs      p(90)=22.97µs      p(95)=1.29s        p(99)=1.49s        max=3.17s        count=110593
+     http_req_connecting..............: avg=106.88ms    min=0s         med=0s          p(90)=252.46µs     p(95)=1.21s        p(99)=1.48s        max=3.17s        count=120593
+     http_req_duration................: avg=6.18s       min=1.24ms     med=4.87s       p(90)=13.55s       p(95)=15.84s       p(99)=18.23s       max=20.72s       count=120593
+       { expected_response:true }.....: avg=6.18s       min=1.24ms     med=4.87s       p(90)=13.55s       p(95)=15.84s       p(99)=18.23s       max=20.72s       count=120592
+     ✓ { phase:rush,method:DELETE }...: avg=7.05s       min=3.79ms     med=5.13s       p(90)=14.79s       p(95)=18.1s        p(99)=18.79s       max=19.96s       count=8539  
+     ✓ { phase:rush,method:GET }......: avg=5.83s       min=1.24ms     med=4.64s       p(90)=12.07s       p(95)=14.38s       p(99)=17.75s       max=20.26s       count=67235 
+     ✓ { phase:rush,method:POST }.....: avg=8.39s       min=10.8ms     med=7.27s       p(90)=15.14s       p(95)=17.76s       p(99)=18.63s       max=20.72s       count=34819 
+     ✗ { phase:rush }.................: avg=6.73s       min=1.24ms     med=5.03s       p(90)=13.86s       p(95)=16.21s       p(99)=18.3s        max=20.72s       count=110593
+     http_req_failed..................: 0.00%   1 out of 120593
+     ✓ { phase:rush }.................: 0.00%   1 out of 110593
+     http_req_receiving...............: avg=2.62ms      min=16.79µs    med=59.29µs     p(90)=473.18µs     p(95)=2.39ms       p(99)=34.61ms      max=1.99s        count=120593
+     http_req_sending.................: avg=6.89ms      min=5.79µs     med=19.07µs     p(90)=681.68µs     p(95)=26.35ms      p(99)=90.22ms      max=2.93s        count=120593
+     http_req_tls_handshaking.........: avg=0s          min=0s         med=0s          p(90)=0s           p(95)=0s           p(99)=0s           max=0s           count=120593
+     http_req_waiting.................: avg=6.18s       min=1.14ms     med=4.86s       p(90)=13.54s       p(95)=15.83s       p(99)=18.23s       max=20.72s       count=120593
+     http_reqs........................: 120593  129.915957/s
+     ✓ { phase:rush }.................: 110593  119.142864/s
+     ✓ { status:0 }...................: 0       0/s
+     ✓ { status:201 }.................: 10391   11.194321/s
+     ✓ { status:409 }.................: 24427   26.315434/s
+     ✓ { status:422 }.................: 0       0/s
+     ✓ { status:429 }.................: 0       0/s
+     ✓ { status:500 }.................: 1       0.001077/s
+     ✓ { status:502 }.................: 0       0/s
+     ✓ { status:503 }.................: 0       0/s
+     ✓ { status:504 }.................: 0       0/s
+     idempotent_replays...............: 2997    3.228696/s
+     iteration_duration...............: avg=2m43s       min=3.52s      med=28.44s      p(90)=10m7s        p(95)=12m14s       p(99)=13m55s       max=14m35s       count=30212 
+     iterations.......................: 30212   32.547668/s
+     login_duration_ms................: avg=128.189049  min=124.125096 med=127.31379   p(90)=130.939249   p(95)=132.523381   p(99)=139.026527   max=2232.144005  count=10000 
+   ✓ login_time_to_token_ms...........: avg=129.1401    min=125        med=128         p(90)=132          p(95)=133          p(99)=140          max=4407         count=10000 
+     rejected.........................: 0       0/s
+     ✓ { group:login }................: 0       0/s
+     ✓ { group:read }.................: 0       0/s
+     ✓ { group:write }................: 0       0/s
+   ✓ replay_mismatch..................: 0       0/s
+     vus..............................: 256     min=0            max=10000
+     vus_max..........................: 10000   min=2155         max=10000
+
+time="2026-11-23T22:50:46Z" level=error msg="thresholds on metrics 'enroll_time_to_201_ms, http_req_duration{phase:rush}' have been crossed"

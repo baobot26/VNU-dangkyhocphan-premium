@@ -1,0 +1,44 @@
+
+     ✓ has accessToken
+
+     checks...........................: 100.00% 837 out of 837
+     data_received....................: 516 kB  15 kB/s
+     data_sent........................: 162 kB  4.8 kB/s
+     http_req_blocked.................: avg=6.42ms      min=2.94µs      med=7.96µs      p(90)=32.97ms     p(95)=40.46ms     p(99)=59.18ms     max=84.83ms     count=837
+     ✓ { phase:rush }.................: avg=0s          min=0s          med=0s          p(90)=0s          p(95)=0s          p(99)=0s          max=0s          count=0  
+     http_req_connecting..............: avg=5.61ms      min=0s          med=0s          p(90)=27.78ms     p(95)=37.05ms     p(99)=50.22ms     max=72.25ms     count=837
+     http_req_duration................: avg=6.68s       min=2.37s       med=6.67s       p(90)=7.55s       p(95)=8.56s       p(99)=9.16s       max=9.88s       count=837
+       { expected_response:true }.....: avg=6.68s       min=2.37s       med=6.67s       p(90)=7.55s       p(95)=8.56s       p(99)=9.16s       max=9.88s       count=837
+     ✓ { phase:rush,method:DELETE }...: avg=0s          min=0s          med=0s          p(90)=0s          p(95)=0s          p(99)=0s          max=0s          count=0  
+     ✓ { phase:rush,method:GET }......: avg=0s          min=0s          med=0s          p(90)=0s          p(95)=0s          p(99)=0s          max=0s          count=0  
+     ✓ { phase:rush,method:POST }.....: avg=0s          min=0s          med=0s          p(90)=0s          p(95)=0s          p(99)=0s          max=0s          count=0  
+     ✓ { phase:rush }.................: avg=0s          min=0s          med=0s          p(90)=0s          p(95)=0s          p(99)=0s          max=0s          count=0  
+   ✓ http_req_failed..................: 0.00%   0 out of 837
+     ✓ { phase:rush }.................: 0.00%   0 out of 0
+     http_req_receiving...............: avg=12.4ms      min=28.7µs      med=99.92µs     p(90)=55.3ms      p(95)=94.69ms     p(99)=153.51ms    max=324.53ms    count=837
+     http_req_sending.................: avg=5.73ms      min=9.25µs      med=28.74µs     p(90)=20.61ms     p(95)=57.31ms     p(99)=59.68ms     max=67.93ms     count=837
+     http_req_tls_handshaking.........: avg=0s          min=0s          med=0s          p(90)=0s          p(95)=0s          p(99)=0s          max=0s          count=837
+     http_req_waiting.................: avg=6.67s       min=2.35s       med=6.65s       p(90)=7.52s       p(95)=8.53s       p(99)=9.08s       max=9.83s       count=837
+     http_reqs........................: 837     24.832584/s
+     ✓ { phase:rush }.................: 0       0/s
+     ✓ { status:0 }...................: 0       0/s
+     ✓ { status:201 }.................: 0       0/s
+     ✓ { status:409 }.................: 0       0/s
+     ✓ { status:422 }.................: 0       0/s
+     ✓ { status:429 }.................: 0       0/s
+     ✓ { status:500 }.................: 0       0/s
+     ✓ { status:502 }.................: 0       0/s
+     ✓ { status:503 }.................: 0       0/s
+     ✓ { status:504 }.................: 0       0/s
+     iteration_duration...............: avg=7.71s       min=3.41s       med=7.69s       p(90)=8.58s       p(95)=9.59s       p(99)=10.21s      max=10.91s      count=837
+     iterations.......................: 837     24.832584/s
+     login_duration_ms................: avg=6689.916387 min=2370.159062 med=6674.434832 p(90)=7555.758009 p(95)=8567.571659 p(99)=9162.992438 max=9880.144521 count=837
+   ✗ login_time_to_token_ms...........: avg=6696.706093 min=2408        med=6675        p(90)=7572.2      p(95)=8585.6      p(99)=9209.76     max=9912        count=837
+     rejected.........................: 0       0/s
+     ✓ { group:login }................: 0       0/s
+     ✓ { group:read }.................: 0       0/s
+     ✓ { group:write }................: 0       0/s
+     vus..............................: 74      min=74         max=200
+     vus_max..........................: 200     min=200        max=200
+
+time="2026-11-23T22:02:28Z" level=error msg="thresholds on metrics 'login_time_to_token_ms' have been crossed"

@@ -1,0 +1,43 @@
+
+     ✓ has accessToken
+
+     checks...........................: 100.00% 14 out of 14
+     data_received....................: 8.6 kB  544 B/s
+     data_sent........................: 2.7 kB  172 B/s
+     http_req_blocked.................: avg=31.13µs    min=6.28µs     med=7.13µs     p(90)=9.11µs     p(95)=124.06µs   p(99)=294.76µs  max=337.44µs   count=14
+     ✓ { phase:rush }.................: avg=0s         min=0s         med=0s         p(90)=0s         p(95)=0s         p(99)=0s        max=0s         count=0 
+     http_req_connecting..............: avg=17.09µs    min=0s         med=0s         p(90)=0s         p(95)=83.76µs    p(99)=208.22µs  max=239.33µs   count=14
+     http_req_duration................: avg=128.93ms   min=128.06ms   med=128.7ms    p(90)=129.76ms   p(95)=129.95ms   p(99)=130.13ms  max=130.18ms   count=14
+       { expected_response:true }.....: avg=128.93ms   min=128.06ms   med=128.7ms    p(90)=129.76ms   p(95)=129.95ms   p(99)=130.13ms  max=130.18ms   count=14
+     ✓ { phase:rush,method:DELETE }...: avg=0s         min=0s         med=0s         p(90)=0s         p(95)=0s         p(99)=0s        max=0s         count=0 
+     ✓ { phase:rush,method:GET }......: avg=0s         min=0s         med=0s         p(90)=0s         p(95)=0s         p(99)=0s        max=0s         count=0 
+     ✓ { phase:rush,method:POST }.....: avg=0s         min=0s         med=0s         p(90)=0s         p(95)=0s         p(99)=0s        max=0s         count=0 
+     ✓ { phase:rush }.................: avg=0s         min=0s         med=0s         p(90)=0s         p(95)=0s         p(99)=0s        max=0s         count=0 
+   ✓ http_req_failed..................: 0.00%   0 out of 14
+     ✓ { phase:rush }.................: 0.00%   0 out of 0
+     http_req_receiving...............: avg=499.4µs    min=428.04µs   med=490.73µs   p(90)=552.36µs   p(95)=560.35µs   p(99)=570.89µs  max=573.52µs   count=14
+     http_req_sending.................: avg=54.48µs    min=23.7µs     med=46.9µs     p(90)=67.91µs    p(95)=100.15µs   p(99)=148.01µs  max=159.98µs   count=14
+     http_req_tls_handshaking.........: avg=0s         min=0s         med=0s         p(90)=0s         p(95)=0s         p(99)=0s        max=0s         count=14
+     http_req_waiting.................: avg=128.37ms   min=127.54ms   med=128.1ms    p(90)=129.22ms   p(95)=129.42ms   p(99)=129.6ms   max=129.65ms   count=14
+     http_reqs........................: 14      0.884938/s
+     ✓ { phase:rush }.................: 0       0/s
+     ✓ { status:0 }...................: 0       0/s
+     ✓ { status:201 }.................: 0       0/s
+     ✓ { status:409 }.................: 0       0/s
+     ✓ { status:422 }.................: 0       0/s
+     ✓ { status:429 }.................: 0       0/s
+     ✓ { status:500 }.................: 0       0/s
+     ✓ { status:502 }.................: 0       0/s
+     ✓ { status:503 }.................: 0       0/s
+     ✓ { status:504 }.................: 0       0/s
+     iteration_duration...............: avg=1.12s      min=1.12s      med=1.12s      p(90)=1.13s      p(95)=1.13s      p(99)=1.13s     max=1.13s      count=14
+     iterations.......................: 14      0.884938/s
+     login_duration_ms................: avg=128.931794 min=128.063148 med=128.709666 p(90)=129.760955 p(95)=129.953493 p(99)=130.13836 max=130.184577 count=14
+   ✓ login_time_to_token_ms...........: avg=129.214286 min=128        med=129        p(90)=130        p(95)=130        p(99)=130       max=130        count=14
+     rejected.........................: 0       0/s
+     ✓ { group:login }................: 0       0/s
+     ✓ { group:read }.................: 0       0/s
+     ✓ { group:write }................: 0       0/s
+     vus..............................: 1       min=1        max=1
+     vus_max..........................: 1       min=1        max=1
+

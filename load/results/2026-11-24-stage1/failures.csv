@@ -1,0 +1,2 @@
+Loại lượt,Biến thể,VU,Dòng log,Số lần
+run,phase-1,10000,databaseFailure=CannotGetJdbcConnectionException,1
