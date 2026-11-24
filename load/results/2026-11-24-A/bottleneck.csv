@@ -1,0 +1,2 @@
+vus,rps,enroll_201_per_s,in_flight,p95_ms,java_cpu,pg_cpu,k6_cpu,sys_cpu,pg_active_mean,lock_wait_mean,lock_wait_max,enroll_api_ms,enroll_db_ms,read_api_ms,read_db_ms,cache_hit_pct,k6_rss_peak_mb
+10000,1248.8,119.2,6561.4,11708.6,166.0,136.8,61.1,93.8,7.0,3.1,10.0,232.7,20.7,100.2,97.7,100.0,4311.5

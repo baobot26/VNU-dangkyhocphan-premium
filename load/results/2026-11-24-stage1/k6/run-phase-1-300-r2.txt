@@ -1,0 +1,48 @@
+
+     ✓ cancel status is 204
+
+     cancel_duration_ms...............: avg=8.991189   min=3.347496 med=5.748972   p(90)=14.296865  p(95)=24.201849 p(99)=60.606042  max=239.960262 count=11039
+     checks...........................: 100.00% 11039 out of 11039
+     data_received....................: 49 MB   415 kB/s
+     data_sent........................: 17 MB   147 kB/s
+     enroll_duration_ms...............: avg=28.006379  min=4.491411 med=11.560457  p(90)=56.815444  p(95)=90.51462  p(99)=331.392804 max=780.425156 count=11039
+   ✓ enroll_time_to_201_ms............: avg=28.426397  min=5        med=12         p(90)=57         p(95)=91        p(99)=335.24     max=809        count=11039
+     http_req_blocked.................: avg=14.36µs    min=2.12µs   med=6.25µs     p(90)=9.15µs     p(95)=13.54µs   p(99)=282.76µs   max=18.3ms     count=45547
+     ✓ { phase:rush }.................: avg=11.84µs    min=2.12µs   med=6.23µs     p(90)=9.03µs     p(95)=11.63µs   p(99)=61.51µs    max=18.3ms     count=45247
+     http_req_connecting..............: avg=3.45µs     min=0s       med=0s         p(90)=0s         p(95)=0s        p(99)=175.38µs   max=5.46ms     count=45547
+     http_req_duration................: avg=15.39ms    min=736.5µs  med=5.41ms     p(90)=26.6ms     p(95)=58.52ms   p(99)=214.01ms   max=784.32ms   count=45547
+       { expected_response:true }.....: avg=15.39ms    min=736.5µs  med=5.41ms     p(90)=26.6ms     p(95)=58.52ms   p(99)=214.01ms   max=784.32ms   count=45547
+     ✓ { phase:rush,method:DELETE }...: avg=8.99ms     min=3.34ms   med=5.74ms     p(90)=14.29ms    p(95)=24.2ms    p(99)=60.6ms     max=239.96ms   count=11039
+     ✓ { phase:rush,method:GET }......: avg=10.58ms    min=736.5µs  med=1.67ms     p(90)=12.26ms    p(95)=28.2ms    p(99)=224.76ms   max=784.32ms   count=22078
+     ✓ { phase:rush,method:POST }.....: avg=27.12ms    min=3.04ms   med=11.18ms    p(90)=54.74ms    p(95)=87.5ms    p(99)=323.65ms   max=780.42ms   count=12130
+     ✓ { phase:rush }.................: avg=14.62ms    min=736.5µs  med=5.37ms     p(90)=25.06ms    p(95)=51.67ms   p(99)=214.14ms   max=784.32ms   count=45247
+     http_req_failed..................: 0.00%   0 out of 45547
+     ✓ { phase:rush }.................: 0.00%   0 out of 45247
+     http_req_receiving...............: avg=604.26µs   min=15.37µs  med=83.33µs    p(90)=302.94µs   p(95)=575.09µs  p(99)=3.76ms     max=299.08ms   count=45547
+     http_req_sending.................: avg=63.68µs    min=6.39µs   med=21.47µs    p(90)=39.14µs    p(95)=58.51µs   p(99)=247.02µs   max=171.73ms   count=45547
+     http_req_tls_handshaking.........: avg=0s         min=0s       med=0s         p(90)=0s         p(95)=0s        p(99)=0s         max=0s         count=45547
+     http_req_waiting.................: avg=14.72ms    min=632.55µs med=5.25ms     p(90)=26.23ms    p(95)=57.36ms   p(99)=198.53ms   max=780.34ms   count=45547
+     http_reqs........................: 45547   389.569579/s
+     ✓ { phase:rush }.................: 45247   387.003639/s
+     ✓ { status:0 }...................: 0       0/s
+     ✓ { status:201 }.................: 12130   103.749511/s
+     ✓ { status:409 }.................: 0       0/s
+     ✓ { status:422 }.................: 0       0/s
+     ✓ { status:429 }.................: 0       0/s
+     ✓ { status:500 }.................: 0       0/s
+     ✓ { status:502 }.................: 0       0/s
+     ✓ { status:503 }.................: 0       0/s
+     ✓ { status:504 }.................: 0       0/s
+     idempotent_replays...............: 1091    9.331469/s
+     iteration_duration...............: avg=2.4s       min=2.01s    med=2.02s      p(90)=2.11s      p(95)=2.18s     p(99)=18.61s     max=27.91s     count=11039
+     iterations.......................: 11039   94.418042/s
+     login_duration_ms................: avg=131.40319  min=125.6462 med=128.170639 p(90)=133.135241 p(95)=134.72084 p(99)=143.151166 max=494.210684 count=300  
+   ✓ login_time_to_token_ms...........: avg=132.173333 min=127      med=129        p(90)=134        p(95)=135       p(99)=144        max=499        count=300  
+     rejected.........................: 0       0/s
+     ✓ { group:login }................: 0       0/s
+     ✓ { group:read }.................: 0       0/s
+     ✓ { group:write }................: 0       0/s
+   ✓ replay_mismatch..................: 0       0/s
+     vus..............................: 1       min=1              max=300
+     vus_max..........................: 300     min=300            max=300
+

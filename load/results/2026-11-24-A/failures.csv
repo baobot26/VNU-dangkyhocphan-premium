@@ -1,0 +1,2 @@
+Loại lượt,Biến thể,VU,Dòng log,Số lần
+run,A,10000,internalFailure=CannotCreateTransactionException,1
